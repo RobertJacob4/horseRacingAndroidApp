@@ -32,6 +32,8 @@ class HorseRaceActivity : AppCompatActivity() {
                 i("add Button Pressed: ${race}")
                 for (i in app.races.indices)
                 { i("Race[$i]:${this.app.races[i]}") }
+                setResult(RESULT_OK)
+                finish()
             }
             else {
                 Snackbar.make(it,"Please Enter a title", Snackbar.LENGTH_LONG)

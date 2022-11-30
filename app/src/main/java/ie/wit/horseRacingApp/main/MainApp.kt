@@ -13,8 +13,5 @@ class MainApp : Application() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
         i("Race started")
-        races.add(RaceModel("one", "About one..."))
-        races.add(RaceModel("two", "About two..."))
-        races.add(RaceModel("three", "About three..."))
     }
 }

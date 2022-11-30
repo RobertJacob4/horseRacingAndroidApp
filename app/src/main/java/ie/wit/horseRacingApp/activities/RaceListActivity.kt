@@ -1,11 +1,17 @@
 package ie.wit.horseRacingApp.activities
 
+
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
+import android.view.MenuItem
+
 
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ie.wit.horseRacingApp.R
@@ -38,7 +44,28 @@ class RaceListActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.menu_main, menu)
         return super.onCreateOptionsMenu(menu)
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item_add -> {
+                val launcherIntent = Intent(this, HorseRaceActivity::class.java)
+                getResult.launch(launcherIntent)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private val getResult =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                (binding.recyclerView.adapter)?.
+                notifyItemRangeChanged(0,app.races.size)
+            }
+        }
 }
+
 
 class RaceAdapter constructor(private var races: List<RaceModel>) :
     RecyclerView.Adapter<RaceAdapter.MainHolder>() {
@@ -65,4 +92,5 @@ class RaceAdapter constructor(private var races: List<RaceModel>) :
             binding.description.text = race.description
         }
     }
+
 }
