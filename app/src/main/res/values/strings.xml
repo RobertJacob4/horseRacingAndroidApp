@@ -5,4 +5,5 @@
     <string name="greeting_text">Greetings One and All from Android!</string>
     <string name="button_addRace">Add Race</string>
     <string name="hint_raceTitle">Race Title</string>
+    <string name="hint_raceDescription">Description </string>
 </resources>
