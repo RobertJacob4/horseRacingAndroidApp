@@ -3,4 +3,6 @@
     <string name="window_text">Press the button below to receive a friendly greeting from Android.</string>
     <string name="button_label">Show Greeting</string>
     <string name="greeting_text">Greetings One and All from Android!</string>
+    <string name="button_addRace">Add Race</string>
+    <string name="hint_raceTitle">Race Title</string>
 </resources>
