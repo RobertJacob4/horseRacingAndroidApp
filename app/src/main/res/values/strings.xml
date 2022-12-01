@@ -8,4 +8,7 @@
     <string name="hint_raceDescription">Description </string>
     <string name="menu_addRace">Add</string>
     <string name="menu_cancelRace">Cancel</string>
+    <string name="enter_race_title"> Please enter a Race Title </string>
+    <string name="save_race"> Save Race </string>
+    <string name="button_addImage"> Add Image </string>
 </resources>

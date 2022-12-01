@@ -10,6 +10,7 @@ import ie.wit.horseRacingApp.databinding.ActivityHorseraceBinding
 import ie.wit.horseRacingApp.main.MainApp
 
 import ie.wit.horseRacingApp.models.RaceModel
+import timber.log.Timber.i
 
 
 class HorseRaceActivity : AppCompatActivity() {
@@ -18,6 +19,8 @@ class HorseRaceActivity : AppCompatActivity() {
     lateinit var app: MainApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        var edit = false
+
         super.onCreate(savedInstanceState)
         binding = ActivityHorseraceBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -26,23 +29,31 @@ class HorseRaceActivity : AppCompatActivity() {
         app = application as MainApp
 
         if (intent.hasExtra("race_edit")) {
+            edit = true
             race = intent.extras?.getParcelable("race_edit")!!
             binding.raceTitle.setText(race.title)
             binding.description.setText(race.description)
+            binding.btnAdd.setText(R.string.save_race)
         }
 
         binding.btnAdd.setOnClickListener() {
             race.title = binding.raceTitle.text.toString()
             race.description = binding.description.text.toString()
-            if (race.title.isNotEmpty()) {
-                app.races.create(race.copy())
-                setResult(RESULT_OK)
-                finish()
-            }
-            else {
-                Snackbar.make(it,"Please Enter a title", Snackbar.LENGTH_LONG)
+            if (race.title.isEmpty()) {
+                Snackbar.make(it,R.string.enter_race_title, Snackbar.LENGTH_LONG)
                     .show()
+            } else {
+                if (edit) {
+                    app.races.update(race.copy())
+                } else {
+                    app.races.create(race.copy())
+                }
             }
+            setResult(RESULT_OK)
+            finish()
+        }
+        binding.chooseImage.setOnClickListener {
+            i("Select image")
         }
     }
 
