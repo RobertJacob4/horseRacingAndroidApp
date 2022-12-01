@@ -29,7 +29,7 @@ class HorseRaceActivity : AppCompatActivity() {
             race.title = binding.raceTitle.text.toString()
             race.description = binding.description.text.toString()
             if (race.title.isNotEmpty()) {
-                app.races.add(race.copy())
+                app.races.create(race.copy())
                 setResult(RESULT_OK)
                 finish()
             }

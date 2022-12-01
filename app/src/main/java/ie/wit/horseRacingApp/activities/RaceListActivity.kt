@@ -29,7 +29,7 @@ class RaceListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = RaceAdapter(app.races)
+        binding.recyclerView.adapter = RaceAdapter(app.races.findAll())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -53,7 +53,7 @@ class RaceListActivity : AppCompatActivity() {
         ) {
             if (it.resultCode == Activity.RESULT_OK) {
                 (binding.recyclerView.adapter)?.
-                notifyItemRangeChanged(0,app.races.size)
+                notifyItemRangeChanged(0,app.races.findAll().size)
             }
         }
 }
