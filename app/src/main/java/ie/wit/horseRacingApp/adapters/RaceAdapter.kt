@@ -6,18 +6,24 @@ import androidx.recyclerview.widget.RecyclerView
 import ie.wit.horseRacingApp.databinding.CardRaceBinding
 import ie.wit.horseRacingApp.models.RaceModel
 
-class RaceAdapter constructor(private var races: List<RaceModel>) :
+interface RaceListener {
+    fun onRaceClick(race: RaceModel)
+}
+
+class RaceAdapter constructor(private var races: List<RaceModel>,
+                                   private val listener: RaceListener) :
     RecyclerView.Adapter<RaceAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
         val binding = CardRaceBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
+
         return MainHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MainHolder, position: Int) {
         val race = races[holder.adapterPosition]
-        holder.bind(race)
+        holder.bind(race, listener)
     }
 
     override fun getItemCount(): Int = races.size
@@ -25,9 +31,10 @@ class RaceAdapter constructor(private var races: List<RaceModel>) :
     class MainHolder(private val binding : CardRaceBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(race: RaceModel) {
+        fun bind(race: RaceModel, listener: RaceListener) {
             binding.raceTitle.text = race.title
             binding.description.text = race.description
+            binding.root.setOnClickListener { listener.onRaceClick(race) }
         }
     }
 }

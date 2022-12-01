@@ -10,10 +10,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import ie.wit.horseRacingApp.R
 import ie.wit.horseRacingApp.adapters.RaceAdapter
+import ie.wit.horseRacingApp.adapters.RaceListener
 import ie.wit.horseRacingApp.databinding.ActivityRaceListBinding
 import ie.wit.horseRacingApp.main.MainApp
+import ie.wit.horseRacingApp.models.RaceModel
 
-class RaceListActivity : AppCompatActivity() {
+class RaceListActivity : AppCompatActivity(), RaceListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityRaceListBinding
@@ -29,7 +31,7 @@ class RaceListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = RaceAdapter(app.races.findAll())
+        binding.recyclerView.adapter = RaceAdapter(app.races.findAll(),this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -46,6 +48,22 @@ class RaceListActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onRaceClick(race: RaceModel) {
+        val launcherIntent = Intent(this, HorseRaceActivity::class.java)
+        launcherIntent.putExtra("race_edit", race)
+        getClickResult.launch(launcherIntent)
+    }
+
+    private val getClickResult =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                (binding.recyclerView.adapter)?.
+                notifyItemRangeChanged(0,app.races.findAll().size)
+            }
+        }
 
     private val getResult =
         registerForActivityResult(

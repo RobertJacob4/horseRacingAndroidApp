@@ -25,6 +25,12 @@ class HorseRaceActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbarAdd)
         app = application as MainApp
 
+        if (intent.hasExtra("race_edit")) {
+            race = intent.extras?.getParcelable("race_edit")!!
+            binding.raceTitle.setText(race.title)
+            binding.description.setText(race.description)
+        }
+
         binding.btnAdd.setOnClickListener() {
             race.title = binding.raceTitle.text.toString()
             race.description = binding.description.text.toString()
