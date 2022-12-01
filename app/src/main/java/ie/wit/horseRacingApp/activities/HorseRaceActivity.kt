@@ -2,36 +2,34 @@ package ie.wit.horseRacingApp.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import com.google.android.material.snackbar.Snackbar
+import ie.wit.horseRacingApp.R
 import ie.wit.horseRacingApp.databinding.ActivityHorseraceBinding
 import ie.wit.horseRacingApp.main.MainApp
 
 import ie.wit.horseRacingApp.models.RaceModel
-import timber.log.Timber
-import timber.log.Timber.i
 
 
 class HorseRaceActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityHorseraceBinding
     var race = RaceModel()
-    lateinit var app : MainApp
+    lateinit var app: MainApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHorseraceBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        binding.toolbarAdd.title = title
+        setSupportActionBar(binding.toolbarAdd)
         app = application as MainApp
-        i("Race activity started...")
+
         binding.btnAdd.setOnClickListener() {
             race.title = binding.raceTitle.text.toString()
             race.description = binding.description.text.toString()
             if (race.title.isNotEmpty()) {
                 app.races.add(race.copy())
-                i("add Button Pressed: ${race}")
-                for (i in app.races.indices)
-                { i("Race[$i]:${this.app.races[i]}") }
                 setResult(RESULT_OK)
                 finish()
             }
@@ -40,5 +38,17 @@ class HorseRaceActivity : AppCompatActivity() {
                     .show()
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu_race, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item_cancel -> { finish() }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
