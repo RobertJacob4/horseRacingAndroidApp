@@ -11,4 +11,5 @@
     <string name="enter_race_title"> Please enter a Race Title </string>
     <string name="save_race"> Save Race </string>
     <string name="button_addImage"> Add Image </string>
+    <string name="select_race_image">Select race image</string>
 </resources>
