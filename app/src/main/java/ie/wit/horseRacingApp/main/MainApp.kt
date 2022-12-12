@@ -15,6 +15,7 @@ class MainApp : Application() {
         super.onCreate()
         Timber.plant(Timber.DebugTree())
         races = RaceJSONStore(applicationContext)
+        //races = RaceMemStore()
         i("Race started")
     }
 }

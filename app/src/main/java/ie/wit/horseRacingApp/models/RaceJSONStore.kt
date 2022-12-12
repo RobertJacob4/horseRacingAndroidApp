@@ -42,7 +42,22 @@ class RaceJSONStore(private val context: Context) : RaceStore {
 
 
     override fun update(race: RaceModel) {
-        // todo
+        val racesList = findAll() as ArrayList<RaceModel>
+        var foundRace: RaceModel? = racesList.find { p -> p.id == race.id }
+        if (foundRace != null) {
+            foundRace.title = race.title
+            foundRace.description = race.description
+            foundRace.image = race.image
+            foundRace.lat = race.lat
+            foundRace.lng = race.lng
+            foundRace.zoom = race.zoom
+        }
+        serialize()
+    }
+
+    override fun delete(race: RaceModel) {
+        races.remove(race)
+        serialize()
     }
 
     private fun serialize() {

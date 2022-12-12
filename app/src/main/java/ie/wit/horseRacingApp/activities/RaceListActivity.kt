@@ -19,6 +19,7 @@ class RaceListActivity : AppCompatActivity(), RaceListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityRaceListBinding
+    private var position: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,9 +50,10 @@ class RaceListActivity : AppCompatActivity(), RaceListener {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onRaceClick(race: RaceModel) {
+    override fun onRaceClick(race: RaceModel, pos : Int) {
         val launcherIntent = Intent(this, HorseRaceActivity::class.java)
         launcherIntent.putExtra("race_edit", race)
+        position = pos
         getClickResult.launch(launcherIntent)
     }
 
@@ -63,6 +65,8 @@ class RaceListActivity : AppCompatActivity(), RaceListener {
                 (binding.recyclerView.adapter)?.
                 notifyItemRangeChanged(0,app.races.findAll().size)
             }
+            else // Deleting
+                if (it.resultCode == 99)     (binding.recyclerView.adapter)?.notifyItemRemoved(position)
         }
 
     private val getResult =

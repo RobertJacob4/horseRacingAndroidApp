@@ -15,4 +15,5 @@
     <string name="change_race_image">Change race image</string>
     <string name="button_location">Set Location</string>
     <string name="title_activity_map">MapActivity</string>
+    <string name="menu_deleteRace">Delete</string>
 </resources>

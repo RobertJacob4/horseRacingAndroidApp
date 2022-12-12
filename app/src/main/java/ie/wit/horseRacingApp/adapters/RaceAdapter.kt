@@ -8,7 +8,7 @@ import ie.wit.horseRacingApp.databinding.CardRaceBinding
 import ie.wit.horseRacingApp.models.RaceModel
 
 interface RaceListener {
-    fun onRaceClick(race: RaceModel)
+    fun onRaceClick(race: RaceModel, position : Int)
 }
 
 class RaceAdapter constructor(private var races: List<RaceModel>,
@@ -36,7 +36,7 @@ class RaceAdapter constructor(private var races: List<RaceModel>,
             binding.raceTitle.text = race.title
             binding.description.text = race.description
             Picasso.get().load(race.image).resize(200,200).into(binding.imageIcon)
-            binding.root.setOnClickListener { listener.onRaceClick(race) }
+            binding.root.setOnClickListener { listener.onRaceClick(race,adapterPosition) }
         }
     }
 }
