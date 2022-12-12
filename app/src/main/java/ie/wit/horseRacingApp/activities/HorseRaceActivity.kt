@@ -16,6 +16,7 @@ import ie.wit.horseRacingApp.helpers.showImagePicker
 import ie.wit.horseRacingApp.main.MainApp
 import ie.wit.horseRacingApp.models.Location
 
+
 import ie.wit.horseRacingApp.models.RaceModel
 import timber.log.Timber.i
 
@@ -29,6 +30,7 @@ class HorseRaceActivity : AppCompatActivity() {
     val IMAGE_REQUEST = 1
     //var location = Location(52.245696, -7.139102, 15f)
     var edit = false
+    val database = Firebase.database
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,6 +89,7 @@ class HorseRaceActivity : AppCompatActivity() {
             }
             setResult(RESULT_OK)
             finish()
+
         }
         binding.chooseImage.setOnClickListener {
             showImagePicker(imageIntentLauncher,this)
@@ -94,6 +97,7 @@ class HorseRaceActivity : AppCompatActivity() {
         registerImagePickerCallback()
         registerMapCallback()
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_race, menu)
@@ -156,4 +160,6 @@ class HorseRaceActivity : AppCompatActivity() {
                 }
             }
     }
+
+
 }
