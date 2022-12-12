@@ -8,6 +8,8 @@ import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import ie.wit.horseRacingApp.R
 import ie.wit.horseRacingApp.adapters.RaceAdapter
 import ie.wit.horseRacingApp.adapters.RaceListener
@@ -49,6 +51,12 @@ class RaceListActivity : AppCompatActivity(), RaceListener {
             R.id.item_map -> {
                 val launcherIntent = Intent(this, RaceMapsActivity::class.java)
                 mapIntentLauncher.launch(launcherIntent)
+            }
+            R.id.item_logout ->
+            {
+                Firebase.auth.signOut()
+                setResult(RESULT_OK)
+                finish()
             }
         }
         return super.onOptionsItemSelected(item)
