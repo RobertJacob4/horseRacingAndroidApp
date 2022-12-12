@@ -12,4 +12,8 @@
         android:icon="@android:drawable/ic_menu_mapmode"
         android:title="@string/menu_addRace"
         app:showAsAction="always"/>
+    <item
+        android:id="@+id/item_logout"
+        android:title="@string/button_signout"
+        app:showAsAction="always" />
 </menu>

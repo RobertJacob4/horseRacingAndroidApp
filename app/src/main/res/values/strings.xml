@@ -17,6 +17,12 @@
     <string name="title_activity_map">MapActivity</string>
     <string name="menu_deleteRace">Delete</string>
     <string name="title_activity_race_maps">Map of All Races</string>
+    <string name="button_signin">Sign In</string>
+    <string name="button_signup">Sign Up</string>
+    <string name="hint_email">Enter Email</string>
+    <string name="hint_password">Enter Password</string>
+    <string name="app_signin">Welcome to the Horse Racing App</string>
+    <string name="button_signout">Logout</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
