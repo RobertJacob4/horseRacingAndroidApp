@@ -1,6 +1,7 @@
 package ie.wit.horseRacingApp.activities
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -13,17 +14,20 @@ import ie.wit.horseRacingApp.R
 import ie.wit.horseRacingApp.databinding.ActivityHorseraceBinding
 import ie.wit.horseRacingApp.helpers.showImagePicker
 import ie.wit.horseRacingApp.main.MainApp
+import ie.wit.horseRacingApp.models.Location
 
 import ie.wit.horseRacingApp.models.RaceModel
 import timber.log.Timber.i
 
 
 class HorseRaceActivity : AppCompatActivity() {
+    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var binding: ActivityHorseraceBinding
     var race = RaceModel()
     lateinit var app: MainApp
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     val IMAGE_REQUEST = 1
+    //var location = Location(52.245696, -7.139102, 15f)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +50,26 @@ class HorseRaceActivity : AppCompatActivity() {
             Picasso.get()
                 .load(race.image)
                 .into(binding.raceImage)
+            if (race.image != Uri.EMPTY) {
+                binding.chooseImage.setText(R.string.change_race_image)
+            }
         }
+        binding.raceLocation.setOnClickListener {
+            i ("Set Location Pressed")
+        }
+
+        binding.raceLocation.setOnClickListener {
+            val location = Location(52.245696, -7.139102, 15f)
+            if (race.zoom != 0f) {
+                location.lat =  race.lat
+                location.lng = race.lng
+                location.zoom = race.zoom
+            }
+            val launcherIntent = Intent(this, MapActivity::class.java)
+                .putExtra("location", location)
+            mapIntentLauncher.launch(launcherIntent)
+        }
+
 
         binding.btnAdd.setOnClickListener() {
             race.title = binding.raceTitle.text.toString()
@@ -65,9 +88,10 @@ class HorseRaceActivity : AppCompatActivity() {
             finish()
         }
         binding.chooseImage.setOnClickListener {
-            showImagePicker(imageIntentLauncher)
+            showImagePicker(imageIntentLauncher,this)
         }
         registerImagePickerCallback()
+        registerMapCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -90,10 +114,36 @@ class HorseRaceActivity : AppCompatActivity() {
                     RESULT_OK -> {
                         if (result.data != null) {
                             i("Got Result ${result.data!!.data}")
-                            race.image = result.data!!.data!!
+
+                            val image = result.data!!.data!!
+                            contentResolver.takePersistableUriPermission(image,
+                                Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                            race.image = image
+
                             Picasso.get()
                                 .load(race.image)
                                 .into(binding.raceImage)
+                            binding.chooseImage.setText(R.string.change_race_image)
+                        } // end of if
+                    }
+                    RESULT_CANCELED -> { } else -> { }
+                }
+            }
+    }
+
+    private fun registerMapCallback() {
+        mapIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { result ->
+                when (result.resultCode) {
+                    RESULT_OK -> {
+                        if (result.data != null) {
+                            i("Got Location ${result.data.toString()}")
+                            val location = result.data!!.extras?.getParcelable<Location>("location")!!
+                            i("Location == $location")
+                            race.lat = location.lat
+                            race.lng = location.lng
+                            race.zoom = location.zoom
                         } // end of if
                     }
                     RESULT_CANCELED -> { } else -> { }

@@ -23,10 +23,14 @@ class RaceMemStore : RaceStore {
     }
 
     override fun update(race: RaceModel) {
-        var foundRace: RaceModel? = races.find { p -> p.id == race.id }
+        val foundRace: RaceModel? = races.find { p -> p.id == race.id }
         if (foundRace != null) {
             foundRace.title = race.title
             foundRace.description = race.description
+            foundRace.image = race.image
+            foundRace.lat = race.lat
+            foundRace.lng = race.lng
+            foundRace.zoom = race.zoom
             logAll()
         }
     }

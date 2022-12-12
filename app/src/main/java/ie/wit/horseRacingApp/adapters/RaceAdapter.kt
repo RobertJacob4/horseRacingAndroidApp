@@ -3,6 +3,7 @@ package ie.wit.horseRacingApp.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import ie.wit.horseRacingApp.databinding.CardRaceBinding
 import ie.wit.horseRacingApp.models.RaceModel
 
@@ -34,6 +35,7 @@ class RaceAdapter constructor(private var races: List<RaceModel>,
         fun bind(race: RaceModel, listener: RaceListener) {
             binding.raceTitle.text = race.title
             binding.description.text = race.description
+            Picasso.get().load(race.image).resize(200,200).into(binding.imageIcon)
             binding.root.setOnClickListener { listener.onRaceClick(race) }
         }
     }
