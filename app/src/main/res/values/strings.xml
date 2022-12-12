@@ -17,6 +17,7 @@
     <string name="title_activity_map">MapActivity</string>
     <string name="menu_deleteRace">Delete</string>
     <string name="title_activity_race_maps">Map of All Races</string>
+    <string name="your_web_client_id">1049444459467-kcopgi3ide5dd3jla0alt59ni8v3arjo.apps.googleusercontent.com</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
