@@ -46,6 +46,10 @@ class RaceListActivity : AppCompatActivity(), RaceListener {
                 val launcherIntent = Intent(this, HorseRaceActivity::class.java)
                 getResult.launch(launcherIntent)
             }
+            R.id.item_map -> {
+                val launcherIntent = Intent(this, RaceMapsActivity::class.java)
+                mapIntentLauncher.launch(launcherIntent)
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -78,4 +82,9 @@ class RaceListActivity : AppCompatActivity(), RaceListener {
                 notifyItemRangeChanged(0,app.races.findAll().size)
             }
         }
+
+    private val mapIntentLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        )    { }
 }
