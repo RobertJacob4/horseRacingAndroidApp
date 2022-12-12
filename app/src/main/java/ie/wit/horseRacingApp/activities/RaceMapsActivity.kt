@@ -4,13 +4,14 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
 import ie.wit.horseRacingApp.databinding.ActivityRaceMapsBinding
 import ie.wit.horseRacingApp.databinding.ContentRaceMapsBinding
 import ie.wit.horseRacingApp.main.MainApp
 
-class RaceMapsActivity : AppCompatActivity() {
+class RaceMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
 
     private lateinit var binding: ActivityRaceMapsBinding
     private lateinit var contentBinding: ContentRaceMapsBinding
@@ -41,6 +42,7 @@ class RaceMapsActivity : AppCompatActivity() {
         app.races.findAll().forEach {
             val loc = LatLng(it.lat, it.lng)
             val options = MarkerOptions().title(it.title).position(loc)
+            map.setOnMarkerClickListener(this)
             map.addMarker(options)?.tag = it.id
         }
     }
@@ -68,5 +70,11 @@ class RaceMapsActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         contentBinding.mapView.onSaveInstanceState(outState)
+    }
+
+    override fun onMarkerClick(marker: Marker): Boolean {
+        contentBinding.currentTitle.text = marker.title
+
+        return false
     }
 }
