@@ -3,19 +3,25 @@ package ie.wit.horseRacingApp.activities
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 
 import ie.wit.horseRacingApp.databinding.ActivityRaceMapsBinding
 import ie.wit.horseRacingApp.databinding.ContentRaceMapsBinding
+import ie.wit.horseRacingApp.main.MainApp
 
 class RaceMapsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRaceMapsBinding
     private lateinit var contentBinding: ContentRaceMapsBinding
     lateinit var map: GoogleMap
+    lateinit var app: MainApp
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        app = application as MainApp
 
         binding = ActivityRaceMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -24,8 +30,20 @@ class RaceMapsActivity : AppCompatActivity() {
         contentBinding = ContentRaceMapsBinding.bind(binding.root)
         contentBinding.mapView.onCreate(savedInstanceState)
 
+        contentBinding.mapView.getMapAsync {
+            map = it
+            configureMap()
+        }
     }
 
+    private fun configureMap() {
+        map.uiSettings.isZoomControlsEnabled = true
+        app.races.findAll().forEach {
+            val loc = LatLng(it.lat, it.lng)
+            val options = MarkerOptions().title(it.title).position(loc)
+            map.addMarker(options)?.tag = it.id
+        }
+    }
 
     override fun onDestroy() {
         super.onDestroy()
