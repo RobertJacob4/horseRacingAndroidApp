@@ -4,8 +4,10 @@
     <string name="button_label">Show Greeting</string>
     <string name="greeting_text">Greetings One and All from Android!</string>
     <string name="button_addRace">Add Race</string>
-    <string name="hint_raceTitle">Race Title</string>
-    <string name="hint_raceDescription">Description </string>
+    <string name="hint_raceName">Race Name</string>
+    <string name="hint_raceDescription">Race Description </string>
+    <string name="hint_raceType">Race Type </string>
+    <string name="hint_raceSize">Race Size </string>
     <string name="menu_addRace">Add</string>
     <string name="menu_cancelRace">Cancel</string>
     <string name="enter_race_title"> Please enter a Race Title </string>

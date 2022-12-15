@@ -45,8 +45,10 @@ class HorseRaceActivity : AppCompatActivity() {
         if (intent.hasExtra("race_edit")) {
             edit = true
             race = intent.extras?.getParcelable("race_edit")!!
-            binding.raceTitle.setText(race.title)
-            binding.description.setText(race.description)
+            binding.raceName.setText(race.title)
+            binding.raceDescription.setText(race.description)
+            binding.raceType.setText(race.type)
+            binding.raceSize.setText(race.size)
             binding.btnAdd.setText(R.string.save_race)
             Picasso.get()
                 .load(race.image)
@@ -73,8 +75,10 @@ class HorseRaceActivity : AppCompatActivity() {
 
 
         binding.btnAdd.setOnClickListener() {
-            race.title = binding.raceTitle.text.toString()
-            race.description = binding.description.text.toString()
+            race.title = binding.raceName.text.toString()
+            race.description = binding.raceDescription.text.toString()
+            race.type = binding.raceType.text.toString()
+            race.size = binding.raceSize.text.toString()
             if (race.title.isEmpty()) {
                 Snackbar.make(it,R.string.enter_race_title, Snackbar.LENGTH_LONG)
                     .show()
