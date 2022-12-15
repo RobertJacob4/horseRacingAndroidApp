@@ -33,8 +33,10 @@ class RaceAdapter constructor(private var races: List<RaceModel>,
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(race: RaceModel, listener: RaceListener) {
-            binding.raceTitle.text = race.title
-            binding.description.text = race.description
+            binding.raceName.text = race.title
+            binding.raceDescription.text = race.description
+            binding.raceType.text = race.type
+            binding.raceSize.text = race.size
             Picasso.get().load(race.image).resize(200,200).into(binding.imageIcon)
             binding.root.setOnClickListener { listener.onRaceClick(race,adapterPosition) }
         }

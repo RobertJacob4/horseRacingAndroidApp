@@ -41,12 +41,12 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/raceTitle"
+                    android:id="@+id/raceName"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_margin="8dp"
                     android:autofillHints="hint"
-                    android:hint="@string/hint_raceTitle"
+                    android:hint="@string/hint_raceName"
                     android:inputType="text"
                     android:maxLength="25"
                     android:maxLines="1"
@@ -55,7 +55,7 @@
                     android:textSize="14sp" />
 
                 <EditText
-                    android:id="@+id/description"
+                    android:id="@+id/raceDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
@@ -67,6 +67,32 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="14sp" />
 
+                <EditText
+                    android:id="@+id/raceType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:hint="@string/hint_raceType"
+                    android:inputType="text"
+                    android:maxLength="25"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/raceSize"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:hint="@string/hint_raceSize"
+                    android:inputType="text"
+                    android:maxLength="25"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp"
+                    tools:ignore="TextFields" />
                 <Button
                     android:id="@+id/chooseImage"
                     android:layout_width="match_parent"

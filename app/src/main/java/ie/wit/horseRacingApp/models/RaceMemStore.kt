@@ -27,6 +27,8 @@ class RaceMemStore : RaceStore {
         if (foundRace != null) {
             foundRace.title = race.title
             foundRace.description = race.description
+            foundRace.type = race.type
+            foundRace.size = race.size
             foundRace.image = race.image
             foundRace.lat = race.lat
             foundRace.lng = race.lng
